@@ -25,13 +25,14 @@ import com.sap.espm.model.util.Utility;
  * ensure that you have the DataSource configured as a JNDI lookup variable in
  * the respective ServletContainer where the application is deployed.
  */
-public class JpaEntityManagerFactory {
+public class JpaEntityManagerFactory
+{
 
 	/**
 	 * The JNDI name of the DataSource.
 	 */
 	public static final String DATA_SOURCE_NAME = "java:comp/env/jdbc/DefaultDB";
-	
+
 	/**
 	 * The package name which contains all the model classes.
 	 */
@@ -52,15 +53,14 @@ public class JpaEntityManagerFactory {
 	 * @throws SQLException
 	 *             if a database occurs during initialization
 	 */
-	public static synchronized EntityManagerFactory getEntityManagerFactory()
-			throws NamingException, SQLException {
+	public static synchronized EntityManagerFactory getEntityManagerFactory() throws NamingException, SQLException
+	{
 		if (entityManagerFactory == null) {
 			InitialContext ctx = new InitialContext();
 			DataSource ds = (DataSource) ctx.lookup(DATA_SOURCE_NAME);
 			Map<String, Object> properties = new HashMap<String, Object>();
 			properties.put(PersistenceUnitProperties.NON_JTA_DATASOURCE, ds);
-			entityManagerFactory = Persistence.createEntityManagerFactory(
-					PERSISTENCE_UNIT_NAME, properties);
+			entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME, properties);
 			Utility.setEntityManagerFactory(entityManagerFactory);
 		}
 		return entityManagerFactory;

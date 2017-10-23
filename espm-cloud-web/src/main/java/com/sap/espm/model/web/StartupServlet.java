@@ -11,17 +11,18 @@ import org.slf4j.LoggerFactory;
 import com.sap.espm.model.data.DataLoader;
 
 /**
- * The Startup {@link Servlet} loads intitial data and provides some additional basic
- * services.
+ * The Startup {@link Servlet} loads intitial data and provides some additional
+ * basic services.
  * 
  */
-public class StartupServlet extends HttpServlet {
+public class StartupServlet extends HttpServlet
+{
 
 	/**
 	 * Serial Id.
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * Static {@link EntityManagerFactory} used to connect to the DataSource.
 	 */
@@ -38,13 +39,15 @@ public class StartupServlet extends HttpServlet {
 	 * 
 	 */
 	@Override
-	public void init() throws ServletException {
+	public void init() throws ServletException
+	{
 		try {
 			emf = JpaEntityManagerFactory.getEntityManagerFactory();
 			DataLoader loader = new DataLoader(emf);
 			loader.loadData();
 
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			LOGGER.error(e.getMessage());
 			throw new ServletException(e);
 		}
@@ -54,7 +57,8 @@ public class StartupServlet extends HttpServlet {
 	 * Closes the JPA entity manager factory.
 	 */
 	@Override
-	public void destroy() {
+	public void destroy()
+	{
 		emf.close();
 	}
 

@@ -30,11 +30,16 @@ sap.ui.define([
 			this.setModel(oEspmModel,"EspmModel");
 
 			var oData ={
-				ShoppingCart:[]
+			
+					ShoppingCart:[]
 			};
+
+			
+			
 			var oModel = new sap.ui.model.json.JSONModel(oData);
 			this.setModel(oModel,"Cart");
 			
+
 			this.getRouter().initialize();
 		}
 	});
