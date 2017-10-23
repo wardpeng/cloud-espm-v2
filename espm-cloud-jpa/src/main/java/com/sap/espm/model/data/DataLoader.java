@@ -387,16 +387,15 @@ public class DataLoader
 		em.getTransaction().begin();
 
 		// create sensor 1
-		Measurement measurement = new Measurement((long) 1, (long) 1, "dht11", new Date(123456), (long) 3750,
-				(long) 7525);
+		Measurement measurement = new Measurement((long) 1, (long) 1, "dht11", new Date(123456), 37.50, 75.25);
 		em.persist(measurement);
 
 		// create sensor 2
-		measurement = new Measurement((long) 2, (long) 1, "dht11", new Date(123457), (long) 3550, (long) 7425);
+		measurement = new Measurement((long) 2, (long) 1, "dht11", new Date(123457), 35.50, 74.25);
 		em.persist(measurement);
 
 		// create sensor 3
-		measurement = new Measurement((long) 3, (long) 1, "dht11", new Date(123458), (long) 3900, (long) 8025);
+		measurement = new Measurement((long) 3, (long) 1, "dht11", new Date(123458), 39.01, 80.25);
 		em.persist(measurement);
 
 		em.getTransaction().commit();
