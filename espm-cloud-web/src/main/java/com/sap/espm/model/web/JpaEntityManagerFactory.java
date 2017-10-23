@@ -1,16 +1,11 @@
 package com.sap.espm.model.web;
 
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.sql.DataSource;
-
-import org.eclipse.persistence.config.PersistenceUnitProperties;
 
 import com.sap.espm.model.util.Utility;
 
@@ -55,12 +50,21 @@ public class JpaEntityManagerFactory
 	 */
 	public static synchronized EntityManagerFactory getEntityManagerFactory() throws NamingException, SQLException
 	{
+		// if (entityManagerFactory == null) {
+		// InitialContext ctx = new InitialContext();
+		// DataSource ds = (DataSource) ctx.lookup(DATA_SOURCE_NAME);
+		// Map<String, Object> properties = new HashMap<String, Object>();
+		// properties.put(PersistenceUnitProperties.NON_JTA_DATASOURCE, ds);
+		// entityManagerFactory =
+		// Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME,
+		// properties);
+		// Utility.setEntityManagerFactory(entityManagerFactory);
+		// }
+		// return entityManagerFactory;
 		if (entityManagerFactory == null) {
-			InitialContext ctx = new InitialContext();
-			DataSource ds = (DataSource) ctx.lookup(DATA_SOURCE_NAME);
-			Map<String, Object> properties = new HashMap<String, Object>();
-			properties.put(PersistenceUnitProperties.NON_JTA_DATASOURCE, ds);
-			entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME, properties);
+
+			entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+
 			Utility.setEntityManagerFactory(entityManagerFactory);
 		}
 		return entityManagerFactory;
