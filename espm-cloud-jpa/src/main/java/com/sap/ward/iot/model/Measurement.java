@@ -1,7 +1,9 @@
 package com.sap.ward.iot.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
@@ -22,9 +24,11 @@ public class Measurement
 
 	private Date createTime;
 
-	private Long value1;
+	@Column(precision = 10, scale = 2)
+	private BigDecimal value1;
 
-	private Long value2;
+	@Column(precision = 10, scale = 2)
+	private BigDecimal value2;
 
 	/**
 	 * 
@@ -35,14 +39,14 @@ public class Measurement
 	 * @param value1
 	 * @param value2
 	 */
-	public Measurement(Long id, Long sensorId, String type, Date createTime, Long value1, Long value2)
+	public Measurement(Long id, Long sensorId, String type, Date createTime, double value1, double value2)
 	{
 		this.id = id;
 		this.sensorId = sensorId;
 		this.type = type;
 		this.createTime = createTime;
-		this.value1 = value1;
-		this.value2 = value2;
+		this.value1 = BigDecimal.valueOf(value1);
+		this.value2 = BigDecimal.valueOf(value2);
 	}
 
 	public Measurement()
@@ -90,22 +94,22 @@ public class Measurement
 		this.createTime = createTime;
 	}
 
-	public Long getValue1()
+	public BigDecimal getValue1()
 	{
 		return value1;
 	}
 
-	public void setValue1(Long value1)
+	public void setValue1(BigDecimal value1)
 	{
 		this.value1 = value1;
 	}
 
-	public Long getValue2()
+	public BigDecimal getValue2()
 	{
 		return value2;
 	}
 
-	public void setValue2(Long value2)
+	public void setValue2(BigDecimal value2)
 	{
 		this.value2 = value2;
 	}
