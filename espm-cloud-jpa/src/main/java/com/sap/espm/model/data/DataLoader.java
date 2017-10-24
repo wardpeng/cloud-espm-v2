@@ -138,20 +138,20 @@ public class DataLoader
 		em.getTransaction().begin();
 
 		// create sensor 1-measurement1
-		Measurement measurement = new Measurement("1", "1", "dht11", new Date(123456), 37.50, 75.25);
+		Measurement measurement = new Measurement("1", "1", "dht11", new Date(123456L), 37.50, 75.25);
 		Sensor sensor = em.find(Sensor.class, "1");
 		measurement.setSensor(sensor);
 		sensor.addMeasurement(measurement);
 		em.persist(measurement);
 
 		// create sensor 1-measurement2
-		measurement = new Measurement("2", "1", "dht11", new Date(123457), 35.50, 74.25);
+		measurement = new Measurement("2", "1", "dht11", new Date(123457L), 35.50, 74.25);
 		measurement.setSensor(sensor);
 		sensor.addMeasurement(measurement);
 		em.persist(measurement);
 
 		// create sensor 1-measurement3
-		measurement = new Measurement("3", "1", "dht11", new Date(123458), 39.01, 80.25);
+		measurement = new Measurement("3", "1", "dht11", new Date(123458L), 39.01, 80.25);
 		measurement.setSensor(sensor);
 		sensor.addMeasurement(measurement);
 		em.persist(measurement);

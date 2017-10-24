@@ -27,7 +27,7 @@ sap.ui.define([
 			
 			var sServiceUrl = this.getMetadata().getManifestEntry("sap.app").dataSources.espmDataModel.uri;
 			var oEspmModel = new sap.ui.model.odata.ODataModel(sServiceUrl, {json: true,loadMetadataAsync: true});
-			this.setModel(oEspmModel,"EspmModel");
+			this.setModel(oEspmModel,"IotModel");
 
 			var oData ={
 			

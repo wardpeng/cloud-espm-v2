@@ -14,7 +14,8 @@
 		"ach": "ach",
 		"dataSources": {
 			"espmDataModel": {
-				"uri": "/espm-cloud-web/espm.svc",
+				"uri": "http://localhost:8080/espm-cloud-web/espm.svc",
+				"uri1": "http://localhost:8080/measurement",
 				"type": "OData",
 				"settings": {
 					"odataVersion": "2.0"
@@ -83,8 +84,8 @@
 			},
 			"routes": [{
 				"pattern": "",
-				"name": "Home",
-				"target": "Home"
+				"name": "Line",
+				"target": "Line"
 			}, {
 				"pattern": "ProductDetail/{Productdetails}",
 				"name": "ProductDetail",
@@ -103,8 +104,8 @@
 				"target": "SalesOrder"
 			}],
 			"targets": {
-				"Home": {
-					"viewName": "Home"
+				"Line": {
+					"viewName": "Line"
 				},
 				"ProductDetail": {
 					"viewName": "ProductDetail"
