@@ -156,6 +156,15 @@ public class DataLoader
 		sensor.addMeasurement(measurement);
 		em.persist(measurement);
 
+		em.persist(sensor);
+
+		// create switch -status
+		sensor = em.find(Sensor.class, "2");
+		measurement = new Measurement("4", "2", "switch", new Date(123458L), 1, 0);
+		measurement.setSensor(sensor);
+		sensor.addMeasurement(measurement);
+		em.persist(measurement);
+
 		// em.getTransaction().commit();
 
 		em.persist(sensor);
