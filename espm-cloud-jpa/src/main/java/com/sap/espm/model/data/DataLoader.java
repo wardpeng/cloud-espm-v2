@@ -355,11 +355,11 @@ public class DataLoader
 		em.getTransaction().begin();
 
 		// create sensor 1
-		Sensor sensor = new Sensor((long) 1, "device_1", "type_1", "description_1");
+		Sensor sensor = new Sensor("1", "device_1", "type_1", "description_1");
 		em.persist(sensor);
 
 		// create sensor 2
-		sensor = new Sensor((long) 2, "device_2", "type_2", "description_1");
+		sensor = new Sensor("2", "device_2", "type_2", "description_1");
 		em.persist(sensor);
 
 		em.getTransaction().commit();
@@ -380,33 +380,44 @@ public class DataLoader
 	 */
 	private List<Measurement> createMeasurementData()
 	{
+
 		EntityManager em = emf.createEntityManager();
 		List<Measurement> resMeasurement = null;
 
 		// create and persist an employee
 		em.getTransaction().begin();
 
-		// create sensor 1
-		Measurement measurement = new Measurement((long) 1, (long) 1, "dht11", new Date(123456), 37.50, 75.25);
+		// create sensor 1-measurement1
+		Measurement measurement = new Measurement("1", "1", "dht11", new Date(123456), 37.50, 75.25);
+		Sensor sensor = em.find(Sensor.class, "1");
+		measurement.setSensor(sensor);
+		sensor.addMeasurement(measurement);
 		em.persist(measurement);
 
-		// create sensor 2
-		measurement = new Measurement((long) 2, (long) 1, "dht11", new Date(123457), 35.50, 74.25);
+		// create sensor 1-measurement2
+		measurement = new Measurement("2", "1", "dht11", new Date(123457), 35.50, 74.25);
+		measurement.setSensor(sensor);
+		sensor.addMeasurement(measurement);
 		em.persist(measurement);
 
-		// create sensor 3
-		measurement = new Measurement((long) 3, (long) 1, "dht11", new Date(123458), 39.01, 80.25);
+		// create sensor 1-measurement3
+		measurement = new Measurement("3", "1", "dht11", new Date(123458), 39.01, 80.25);
+		measurement.setSensor(sensor);
+		sensor.addMeasurement(measurement);
 		em.persist(measurement);
 
+		// em.getTransaction().commit();
+
+		em.persist(sensor);
 		em.getTransaction().commit();
 
 		TypedQuery<Measurement> query = em.createNamedQuery("Measurement.getAllMeasurement", Measurement.class);
 		resMeasurement = query.getResultList();
 
-		// System.out.println("All sensors:***************************");
-		// for (Sensor t : resSensor) {
-		// System.out.println(t);
-		// }
+		System.out.println("All Measurement:-------------------------------------");
+		for (Measurement t : resMeasurement) {
+			System.out.println(t);
+		}
 
 		return resMeasurement;
 	}
