@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -16,9 +17,9 @@ import javax.persistence.Table;
 public class Measurement
 {
 	@Id
-	private Long id;
+	private String measurementId;
 
-	private Long sensorId;
+	private String sensorId;
 
 	private String type;
 
@@ -30,6 +31,14 @@ public class Measurement
 	@Column(precision = 10, scale = 2)
 	private BigDecimal value2;
 
+	@ManyToOne(optional = false)
+	private Sensor sensor;
+
+	public Measurement()
+	{
+
+	}
+
 	/**
 	 * 
 	 * @param id
@@ -39,9 +48,9 @@ public class Measurement
 	 * @param value1
 	 * @param value2
 	 */
-	public Measurement(Long id, Long sensorId, String type, Date createTime, double value1, double value2)
+	public Measurement(String id, String sensorId, String type, Date createTime, double value1, double value2)
 	{
-		this.id = id;
+		this.measurementId = id;
 		this.sensorId = sensorId;
 		this.type = type;
 		this.createTime = createTime;
@@ -49,27 +58,22 @@ public class Measurement
 		this.value2 = BigDecimal.valueOf(value2);
 	}
 
-	public Measurement()
+	public String getMeasurementId()
 	{
-
+		return this.measurementId;
 	}
 
-	public Long getId()
+	public void setMeasurementId(String id)
 	{
-		return id;
+		this.measurementId = id;
 	}
 
-	public void setId(Long id)
-	{
-		this.id = id;
-	}
-
-	public Long getSensorId()
+	public String getSensorId()
 	{
 		return sensorId;
 	}
 
-	public void setSensorId(Long sensorId)
+	public void setSensorId(String sensorId)
 	{
 		this.sensorId = sensorId;
 	}
@@ -112,5 +116,15 @@ public class Measurement
 	public void setValue2(BigDecimal value2)
 	{
 		this.value2 = value2;
+	}
+
+	public Sensor getSensor()
+	{
+		return sensor;
+	}
+
+	public void setSensor(Sensor sensor)
+	{
+		this.sensor = sensor;
 	}
 }

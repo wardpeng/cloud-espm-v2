@@ -1,9 +1,14 @@
 package com.sap.ward.iot.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -12,7 +17,7 @@ import javax.persistence.Table;
 public class Sensor
 {
 	@Id
-	private Long id;
+	private String sensorId;
 
 	private String device;
 
@@ -20,8 +25,12 @@ public class Sensor
 
 	private String description;
 
+	@OneToMany(mappedBy = "sensor", targetEntity = Measurement.class, fetch = FetchType.EAGER)
+	private List<Measurement> measurement;
+
 	public Sensor()
 	{
+		this.measurement = new ArrayList<Measurement>();
 	}
 
 	/**
@@ -35,22 +44,23 @@ public class Sensor
 	 * @param description
 	 *            描述
 	 */
-	public Sensor(Long id, String device, String type, String description)
+	public Sensor(String id, String device, String type, String description)
 	{
-		this.id = id;
+		this();
+		this.setSensorId(id);
 		this.device = device;
 		this.type = type;
 		this.description = description;
 	}
 
-	public Long getId()
+	public String getSensorId()
 	{
-		return id;
+		return sensorId;
 	}
 
-	public void setId(Long id)
+	public void setSensorId(String sensorId)
 	{
-		this.id = id;
+		this.sensorId = sensorId;
 	}
 
 	public String getDevice()
@@ -82,4 +92,15 @@ public class Sensor
 	{
 		this.description = description == null ? null : description.trim();
 	}
+
+	public List<Measurement> getMeasurement()
+	{
+		return measurement;
+	}
+
+	public void addMeasurement(Measurement measurement)
+	{
+		this.measurement.add(measurement);
+	}
+
 }
