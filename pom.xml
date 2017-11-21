@@ -89,7 +89,7 @@
 	<modules>
 		<module>espm-cloud-jpa</module>
 		<module>espm-cloud-web</module>
-		<module>?</module>
+		
 	</modules>
 
 	<dependencyManagement>

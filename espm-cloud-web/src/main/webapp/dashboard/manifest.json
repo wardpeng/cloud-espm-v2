@@ -14,8 +14,8 @@
 		"ach": "ach",
 		"dataSources": {
 			"espmDataModel": {
-				"uri": "http://localhost:8080/espm-cloud-web/espm.svc",
-				"uri1": "http://localhost:8080/measurement",
+				"uri1": "/espm.svc",
+				"uri": "/espm-cloud-web/espm.svc",
 				"type": "OData",
 				"settings": {
 					"odataVersion": "2.0"

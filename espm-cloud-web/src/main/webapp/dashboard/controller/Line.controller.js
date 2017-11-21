@@ -1,16 +1,19 @@
 sap.ui.define([
+		"com/sap/espm/shop/model/formatter",
         'jquery.sap.global',
         'sap/ui/core/mvc/Controller',
         'sap/ui/model/json/JSONModel',
         'sap/viz/ui5/data/FlattenedDataset',
         'sap/viz/ui5/format/ChartFormatter',
-        'sap/viz/ui5/api/env/Format',
-    ], function(jQuery, Controller, JSONModel, FlattenedDataset, ChartFormatter, Format) {
+        'sap/viz/ui5/api/env/Format'
+
+    ], function(formatter, jQuery, Controller, JSONModel, FlattenedDataset, ChartFormatter, Format) {
     "use strict";
 
     var Controller = Controller.extend("com.sap.espm.shop.controller.Line", {
 
         dataPath : "model",
+    	formatter: formatter,
 
         settingsModel : {
 
@@ -27,7 +30,7 @@ sap.ui.define([
             },
             switch : {
                 name : "LED Switch",
-                defaultState : true
+                defaultState : false
             },
             axisTitle : {
                 name : "Axis Title",
@@ -95,7 +98,8 @@ sap.ui.define([
                     text: 'Huminity & Temperature sensor'
                 }
             });
-            // var dataModel = new JSONModel(this.dataPath + "/betterMedium.json");
+            // var dataModel = new JSONModel(this.dataPath +
+			// "/betterMedium.json");
             // oVizFrame.setModel(dataModel);
 
             var oPopOver = this.getView().byId("idPopOver");
@@ -115,28 +119,28 @@ sap.ui.define([
         onDatasetSelected : function(oEvent){
             // var datasetRadio = oEvent.getSource();
             // if(this.oVizFrame && datasetRadio.getSelected()){
-            //     var bindValue = datasetRadio.getBindingContext().getObject();
-            //     var dataset = {
-            //         data: {
-            //             path: "/measurement"
-            //         }
-            //     };
-            //     var dim = this.settingsModel.dimensions[bindValue.name];
-            //     dataset.dimensions = dim;
-            //     dataset.measures = this.settingsModel.measures;
-            //     var oDataset = new FlattenedDataset(dataset);
-            //     this.oVizFrame.setDataset(oDataset);
-            //     var dataModel = new JSONModel(this.dataPath + bindValue.value);
-            //     this.oVizFrame.setModel(dataModel);
+            // var bindValue = datasetRadio.getBindingContext().getObject();
+            // var dataset = {
+            // data: {
+            // path: "/measurement"
+            // }
+            // };
+            // var dim = this.settingsModel.dimensions[bindValue.name];
+            // dataset.dimensions = dim;
+            // dataset.measures = this.settingsModel.measures;
+            // var oDataset = new FlattenedDataset(dataset);
+            // this.oVizFrame.setDataset(oDataset);
+            // var dataModel = new JSONModel(this.dataPath + bindValue.value);
+            // this.oVizFrame.setModel(dataModel);
             //
-            //     var feedCategoryAxis = this.getView().byId('categoryAxisFeed');
-            //     this.oVizFrame.removeFeed(feedCategoryAxis);
-            //     var feed = [];
-            //     for (var i = 0; i < dim.length; i++) {
-            //         feed.push(dim[i].name);
-            //     }
-            //     feedCategoryAxis.setValues(feed);
-            //     this.oVizFrame.addFeed(feedCategoryAxis);
+            // var feedCategoryAxis = this.getView().byId('categoryAxisFeed');
+            // this.oVizFrame.removeFeed(feedCategoryAxis);
+            // var feed = [];
+            // for (var i = 0; i < dim.length; i++) {
+            // feed.push(dim[i].name);
+            // }
+            // feedCategoryAxis.setValues(feed);
+            // this.oVizFrame.addFeed(feedCategoryAxis);
             // }
         },
 
@@ -153,15 +157,42 @@ sap.ui.define([
         },
 
         onSwitchChanged : function(oEvent){
-            if(this.oVizFrame){
-                this.oVizFrame.setVizProperties({
-                    plotArea: {
-                        dataLabel: {
-                            visible: oEvent.getParameter('state')
-                        }
-                    }
-                });
-            }
+        	var btnState = oEvent.getParameter('state');
+
+        	// var iotMode = this.getView().getModel("IotModel");
+			
+        	this.sendSwitchStateToServer(btnState);
+// if(this.oVizFrame){
+// this.oVizFrame.setVizProperties({
+// plotArea: {
+// dataLabel: {
+// visible: btnState
+// }
+// }
+// });
+// }
+        },
+        
+        sendSwitchStateToServer: function(switchState)
+        {
+        	// var userModel = this.getView().getModel("user");
+        	var switchValue;
+        	if(switchState)
+        		switchValue = '1.0';
+        	else
+        		switchValue = '0.0';
+			var context = JSON.stringify({
+				"Value1": switchValue,
+			});
+
+			$.ajax({
+				type: "PUT",
+				url: "/espm-cloud-web/espm.svc/Switchs('4')",
+				// url: "/espm.svc/Switchs('4')",
+				data: context,
+				dataType: "json",
+				contentType: "application/json"
+			});
         },
 
         onAxisTitleChanged : function(oEvent){

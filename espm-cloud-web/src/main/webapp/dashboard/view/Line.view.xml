@@ -28,7 +28,7 @@
 					<viz.data:FlattenedDataset data="{IotModel>/Measurements}">
 						<viz.data:dimensions>
 							<viz.data:DimensionDefinition name="Week"
-								value="{CreateTime}" />
+								value="{path: 'CreateTime',  formatter:'.formatter.formatDate' }" />
 						</viz.data:dimensions>
 						<viz.data:measures>
 							<viz.data:MeasureDefinition name="Temperature"

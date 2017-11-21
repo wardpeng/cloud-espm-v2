@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import com.sap.espm.model.util.Utility;
 import com.sap.ward.iot.model.Measurement;
 import com.sap.ward.iot.model.Sensor;
+import com.sap.ward.iot.model.Switch;
 import com.sap.ward.iot.model.Temperature;
 
 /**
@@ -51,6 +52,7 @@ public class DataLoader
 		loadTemperatures();// 加载测试数据
 		createSensorData();// 加载测试数据
 		createMeasurementData();// 加载测试数据
+		createSwitch();// Switch测试方法
 
 		System.out.println("loadData():###########################");
 
@@ -138,36 +140,26 @@ public class DataLoader
 		em.getTransaction().begin();
 
 		// create sensor 1-measurement1
-		Measurement measurement = new Measurement("1", "1", "dht11", new Date(123456L), 37.50, 75.25);
+		Measurement measurement = new Measurement("1", "1", "dht11", new Date(1511241780342L), 37.50, 75.25);
 		Sensor sensor = em.find(Sensor.class, "1");
 		measurement.setSensor(sensor);
 		sensor.addMeasurement(measurement);
 		em.persist(measurement);
 
 		// create sensor 1-measurement2
-		measurement = new Measurement("2", "1", "dht11", new Date(123457L), 35.50, 74.25);
+		measurement = new Measurement("2", "1", "dht11", new Date(1511241787342L), 35.50, 74.25);
 		measurement.setSensor(sensor);
 		sensor.addMeasurement(measurement);
 		em.persist(measurement);
 
 		// create sensor 1-measurement3
-		measurement = new Measurement("3", "1", "dht11", new Date(123458L), 39.01, 80.25);
+		measurement = new Measurement("3", "1", "dht11", new Date(1511241794342L), 39.01, 80.25);
 		measurement.setSensor(sensor);
 		sensor.addMeasurement(measurement);
 		em.persist(measurement);
 
 		em.persist(sensor);
 
-		// create switch -status
-		sensor = em.find(Sensor.class, "2");
-		measurement = new Measurement("4", "2", "switch", new Date(123458L), 1, 0);
-		measurement.setSensor(sensor);
-		sensor.addMeasurement(measurement);
-		em.persist(measurement);
-
-		// em.getTransaction().commit();
-
-		em.persist(sensor);
 		em.getTransaction().commit();
 
 		TypedQuery<Measurement> query = em.createNamedQuery("Measurement.getAllMeasurement", Measurement.class);
@@ -179,6 +171,26 @@ public class DataLoader
 		}
 
 		return resMeasurement;
+	}
+
+	/**
+	 * 创建Sensor测试数据，并插入到数据库
+	 */
+	private List<Switch> createSwitch()
+	{
+		EntityManager em = emf.createEntityManager();
+		List<Switch> resSwitch = null;
+
+		// create and persist an employee
+		em.getTransaction().begin();
+
+		// create sensor 1
+		Switch sw = new Switch("4", (double) 0.0);
+		em.persist(sw);
+
+		em.getTransaction().commit();
+
+		return null;
 	}
 
 }
