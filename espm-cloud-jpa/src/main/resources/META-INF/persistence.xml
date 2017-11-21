@@ -7,10 +7,11 @@
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ssm" />
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:mysql://sql12.freemysqlhosting.net:3306/sql12206225" />
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.user" value="root" />
-			<property name="javax.persistence.jdbc.password" value="admin" />
+			<property name="javax.persistence.jdbc.user" value="sql12206225" />
+			<property name="javax.persistence.jdbc.password" value="vCfDrZtGNk" />
 
 			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
 		</properties>

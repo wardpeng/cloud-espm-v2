@@ -187,8 +187,8 @@ sap.ui.define([
 
 			$.ajax({
 				type: "PUT",
-				url: "/espm-cloud-web/espm.svc/Switchs('4')",
-				// url: "/espm.svc/Switchs('4')",
+				//url: "/espm-cloud-web/espm.svc/Switchs('4')",
+				url: "/espm.svc/Switchs('4')",
 				data: context,
 				dataType: "json",
 				contentType: "application/json"

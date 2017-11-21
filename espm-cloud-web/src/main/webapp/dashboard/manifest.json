@@ -14,8 +14,8 @@
 		"ach": "ach",
 		"dataSources": {
 			"espmDataModel": {
-				"uri1": "/espm.svc",
-				"uri": "/espm-cloud-web/espm.svc",
+				"uri": "/espm.svc",
+				"uri1": "/espm-cloud-web/espm.svc",
 				"type": "OData",
 				"settings": {
 					"odataVersion": "2.0"
